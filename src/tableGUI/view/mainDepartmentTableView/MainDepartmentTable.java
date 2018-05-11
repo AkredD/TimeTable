@@ -37,9 +37,7 @@ public class MainDepartmentTable extends Application {
         initRootLayout();
         showPersonOverview();
 
-        if (Manager.getInstance().getAccess() == 1){
-            initMenuBarLayout();
-        }
+        initMenuBarLayout();
     }
 
     public void setMainApp(MainApp mainApp){

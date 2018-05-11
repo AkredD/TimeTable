@@ -91,6 +91,12 @@ public class PersonOverviewController {
     }
 
 
+    public void refreshDepartments(){
+        ObservableList<Department> a = FXCollections.observableArrayList(Manager.getInstance().getDepartments());
+        departmentsListView.setItems(a);
+        selectDepartment();
+    }
+
     public void setTable(){
         if (dep != null) {
             setTableOverview(tabTable.getSelectionModel().getSelectedItem(), dep);

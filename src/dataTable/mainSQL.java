@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.sql.*;
 
@@ -32,7 +33,7 @@ public class mainSQL {
                     " LASTNAME      TEXT     NOT NULL, " +
                     " BIRTHDAY      TEXT    NOT NULL, " +
                     " AGE           INT     NOT NULL, " +
-                    " POSITIONW      TEXT    NOT NULL, " +
+                    " POSITIONW     TEXT    NOT NULL, " +
                     " ADDRESS       TEXT    NOT NULL, " +
                     " ACCESS        INT     NOT NULL)";
             stmt.executeUpdate(sql);
@@ -46,22 +47,37 @@ public class mainSQL {
             DepartmentsTable.setConnection(c);
             EmployeeTable.setConnection(c);
 
-            /*EmployeeTable.getInstance().addEmployee(new Employee(1, "a", "b", "c",
+            EmployeeTable.getInstance().addEmployee(new Employee("1234",0, "admin", "admin", "c",
                     30, "low", "www.low", 1));
+            EmployeeTable.getInstance().addEmployee(new Employee("1234",1, "admin", "admin", "c",
+                    30, "low", "www.low", 1));
+            Department dp = new Department("firstTablea");
+            dp.addEmployee(EmployeeTable.getInstance().getEmployee(1));
+            /*
             Employee emp = EmployeeTable.getInstance().getEmployee(1);
 
             System.out.println(emp.getFstName());
             Department dp = new Department("firstTablea");
+            Department dp2 = new Department("second");
+            Department dp3 = new Department("ts");
             //Department dpa = DepartmentsTable.getInstance().getDepartment("firstTablea");
             if (DepartmentsTable.getInstance().containsOf("firstTablea")) {
                 dp.addEmployee(emp);
+                dp2.addEmployee(emp);
+                dp3.addEmployee(emp);
             }
-            dp.getEmployees();
+            dp.deleteEmployee(emp);
+            ArrayList<String> deps = EmployeeTable.getInstance().getEmployeesDepartments(emp);
+            for (int i = 0; i < deps.size(); ++i){
+                System.out.println(deps.get(i));
+            }*/
+
+            /*dp.getEmployees();
             dp.deleteEmployee(emp);
             dp.getEmployees();
             dp.addEmployee(emp);
             //dp.updateEmployeesCalendar(emp, new CalendarDep("dsa"));
-            dp.getCalendar(emp);
+            dp.getCalendar(emp);*/
             /*EmployeeTable.getInstance().setConnection(c);
 
 

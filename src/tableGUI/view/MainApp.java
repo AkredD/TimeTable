@@ -28,6 +28,8 @@ public class MainApp extends Application {
     public void initMainDepartmentTable(){
         MainDepartmentTable departmentTable = new MainDepartmentTable();
         departmentTable.setMainApp(this);
+        mainStage.close();
+        mainStage = new Stage();
         departmentTable.start(mainStage);
     }
 

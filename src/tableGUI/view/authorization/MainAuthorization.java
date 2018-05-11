@@ -23,6 +23,7 @@ public class MainAuthorization extends Application {
             AnchorPane anchorPane = (AnchorPane) loader.load();
             Scene scene = new Scene(anchorPane);
             authorizationStage.setScene(scene);
+            authorizationStage.resizableProperty().setValue(false);
             authorizationStage.show();
             AuthorizationViewController controller = loader.getController();
             controller.setMainAuthorizaion(this);

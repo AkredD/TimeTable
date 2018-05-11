@@ -94,7 +94,7 @@ public class DepartmentTable {
                 stm.executeUpdate("INSERT INTO " + nameDepartment + " ( IDEMP, CALENDAR ) " +
                         "VALUES (" + emp.getID() + ", " + "'" + calendar.toString() + "'" + " )");
                 stm.close();
-
+                EmployeeTable.getInstance().addEmployeeToDepartment(emp, DepartmentsTable.getInstance().getDepartment(nameDepartment));
                 emps.add(emp);
                 cals.put(emp, calendar);
             }catch (Exception e){
@@ -158,6 +158,7 @@ public class DepartmentTable {
                 Statement stm = dptn.createStatement();
                 stm.executeUpdate(" DELETE FROM " + nameDepartment + " WHERE IDEMP = " + emp.getID());
                 stm.close();
+                EmployeeTable.getInstance().deleteEmployeeFromDepartment(emp, DepartmentsTable.getInstance().getDepartment(nameDepartment));
                 emps.remove(emp);
                 cals.remove(emp);
             }catch (Exception e){

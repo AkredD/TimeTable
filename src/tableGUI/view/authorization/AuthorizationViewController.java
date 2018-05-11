@@ -3,12 +3,9 @@ package tableGUI.view.authorization;
 import dataTable.employees.Employee;
 import dataTable.employees.EmployeeTable;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import manager.Manager;
-import tableGUI.view.authorization.MainAuthorization;
-import tableGUI.view.mainDepartmentTableView.MainDepartmentTable;
-
+import tableGUI.util.Util;
 
 
 public class AuthorizationViewController {
@@ -32,7 +29,7 @@ public class AuthorizationViewController {
             try {
                 id = Integer.parseInt(idField.getText());
             }catch (Exception e){
-                viewAlertWindow("Please, use only numeral");
+                Util.viewAlertWindow("Please, use only numeral");
                 return;
             }
             String password = passwordField.getText();
@@ -43,22 +40,14 @@ public class AuthorizationViewController {
                     mainAuthorizaion.stop();
                     mainAuthorizaion.getMainApp().initMainDepartmentTable();
                 }else{
-                    viewAlertWindow("Wrong password");
+                    Util.viewAlertWindow("Wrong password");
                 }
             }else{
-                viewAlertWindow("There is no employee with those ID(" + id +")");
+                Util.viewAlertWindow("There is no employee with those ID(" + id +")");
             }
         }catch (Exception e){
-            viewAlertWindow(e.getMessage());
+            Util.viewAlertWindow(e.getMessage());
         }
-    }
-
-    private void viewAlertWindow(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     public void setMainAuthorizaion(MainAuthorization mainAuthorizaion){

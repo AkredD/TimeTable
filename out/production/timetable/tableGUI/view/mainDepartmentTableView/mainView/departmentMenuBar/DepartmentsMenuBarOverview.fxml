@@ -7,9 +7,10 @@
 
 <AnchorPane maxHeight="35.0" minHeight="35.0" prefHeight="35.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tableGUI.view.mainDepartmentTableView.mainView.departmentMenuBar.DepartmentsMenuBarOverviewController">
    <children>
-      <ButtonBar buttonMinWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ButtonBar buttonMinWidth="85.0" nodeOrientation="RIGHT_TO_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <buttons>
-            <Button mnemonicParsing="false" onAction="#editDepartments" text="Edit" />
+            <Button fx:id="buttonEmployees" mnemonicParsing="false" onAction="#editEmployees" text="Employees" />
+            <Button fx:id="buttonDepartments" mnemonicParsing="false" onAction="#editDepartments" text="Departments" />
         </buttons>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

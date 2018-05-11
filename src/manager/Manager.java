@@ -45,16 +45,23 @@ public class Manager {
 
         ArrayList<Department> loc = new ArrayList<>();
         try {
+            /*Employee c = new Employee("1234",1, "a", "a", "a",
+                    30, "a", "a", 0);
+            EmployeeTable.getInstance().addEmployee(c);*/
             /*Department a = new Department("first");
             Department b = new Department("second");
-            //Employee c = new Employee("1234",1, "a", "b", "c",
-            //        30, "low", "www.low", 1);
+            Employee c = new Employee("1234",1, "a", "b", "c",
+                    30, "low", "www.low", 1);
+            EmployeeTable.getInstance().addEmployee(c);
+            c = new Employee("1234",2, "asd", "b", "c",
+                    30, "low", "www.low", 1);
+            EmployeeTable.getInstance().addEmployee(c);
             a.addEmployee(EmployeeTable.getInstance().getEmployee(1));
             b.addEmployee(EmployeeTable.getInstance().getEmployee(2));
             //Employee d = new Employee("1234",2, "b", "c", "d",
             //        40, "high", "spb", 2);
-            b.addEmployee(EmployeeTable.getInstance().getEmployee(1));
-            */
+            b.addEmployee(EmployeeTable.getInstance().getEmployee(1));*/
+
 
             HashMap<String, Department> departments = DepartmentsTable.getInstance().getDepartments();
             departments.forEach((name, dep) -> loc.add(dep));
@@ -63,6 +70,15 @@ public class Manager {
             e.printStackTrace();
         }
         return loc;
+    }
+
+    public ArrayList<Employee> getEmployees(){
+        try {
+            return EmployeeTable.getInstance().getEmployees();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

@@ -60,7 +60,6 @@ public class TableOverviewController {
         }
     }
 
-
     public void setCurrentTab(Tab currentTab) {
         this.currentTab = currentTab;
         if (dep == null) return;

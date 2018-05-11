@@ -110,8 +110,16 @@ public class DepartmentsTable {
             ArrayList<Employee> employees = a.getEmployees();
             deleteDepartment(dep);
             a = new DepartmentTable(dpnts, employees, calendarDeps, newName);
-            Department loc = new Department(a, newName);
-            departments.put(newName, dep);
+            Department newDep = new Department(a, newName);
+            departments.put(newName, newDep);
+            try{
+                Statement stm = dpnts.createStatement();
+                stm.executeUpdate("INSERT INTO DEPARTMENTS (NAME, ID, ELEVATION ) " +
+                        "VALUES (" + "'" + newName + "'" + ", " + maxID++ + ", " + "'" + newName + "Elevation" + "'" + ")");
+                stm.close();
+            }catch (Exception e){
+
+            }
         }
     }
 }

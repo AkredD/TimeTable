@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import manager.Manager;
+import tableGUI.util.Util;
 import tableGUI.view.MainApp;
 import tableGUI.view.mainDepartmentTableView.mainView.PersonOverviewController;
 
@@ -44,7 +45,9 @@ public class DepartmentsEditController {
 
     private Department selectedDepartment;
     private PersonOverviewController personOverviewController;
+    private Stage departmentsEditStage;
     private Stage addEmployee;
+    private Stage addDepartment;
 
     @FXML
     private void initialize() {
@@ -64,23 +67,30 @@ public class DepartmentsEditController {
 
     }
 
+    public void setStage(Stage departmentsEditStage){
+        this.departmentsEditStage = departmentsEditStage;
+    }
+
     public Department getSelectedDepartment(){
         return selectedDepartment;
     }
 
     private void setDepartment(Department dep){
-        this.selectedDepartment = dep;
-        departmentName.setText(dep.getName());
-        ObservableList<Employee> a = FXCollections.observableArrayList(dep.getEmployees());
-        tableEmployee.setItems(a);
+        if (dep != null) {
+            this.selectedDepartment = dep;
+            departmentName.setText(dep.getName());
+            ObservableList<Employee> a = FXCollections.observableArrayList(dep.getEmployees());
+            tableEmployee.setItems(a);
+        }
     }
 
     public void setPersonOverviewController(PersonOverviewController personOverviewController){
         this.personOverviewController = personOverviewController;
     }
 
-
-
+    public void shutdown(){
+        personOverviewController.refreshDepartments();
+    }
 
 
     public void deleteDepartment(){
@@ -96,25 +106,64 @@ public class DepartmentsEditController {
     }
 
     public void addDepartment(){
-
+        try {
+            this.addDepartment = new Stage();
+            addDepartment.setTitle("Addition department");
+            FXMLLoader loader = new FXMLLoader();
+            //System.out.println();
+            loader.setLocation(MainApp.class.getResource("departmentsEditView/AddDepartmentOverview.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+            Scene scene = new Scene(anchorPane);
+            addDepartment.setScene(scene);
+            addDepartment.initOwner(departmentsEditStage);
+            addDepartment.initModality(Modality.WINDOW_MODAL);
+            addDepartment.resizableProperty().setValue(false);
+            addDepartment.show();
+            AddDepartmentController controller = loader.getController();
+            controller.setDepartmentsEditController(this);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void renameDepartment(){
+        String name = departmentName.getText();
+        if (!Util.checkDepartmentName(name)){
+            Util.viewAlertWindow("Use only english characters or numbers");
+            return;
+        }
+        try {
+            if (!name.equals("")) {
+                if (!DepartmentsTable.getInstance().getDepartments().containsKey(name)) {
+                    DepartmentsTable.getInstance().renameDepartment(selectedDepartment, name);
+                    selectedDepartment = DepartmentsTable.getInstance().getDepartment(name);
+                    ObservableList<Department> a = FXCollections.observableArrayList(Manager.getInstance().getDepartments());
+                    departmentList.setItems(a);
+                } else {
+                    Util.viewAlertWindow("This department already exist");
+                }
+            } else {
+                Util.viewAlertWindow("Please, enter new name");
+            }
+        }catch (Exception e){
 
+        }
     }
 
     public void addEmployeeToDepartment(){
+        if (selectedDepartment == null) return;
         try {
             this.addEmployee = new Stage();
-            addEmployee.setTitle("Addition");
+            addEmployee.setTitle("Addition employee");
             FXMLLoader loader = new FXMLLoader();
             //System.out.println();
             loader.setLocation(MainApp.class.getResource("departmentsEditView/AddEmployeeOverview.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
             Scene scene = new Scene(anchorPane);
             addEmployee.setScene(scene);
-            addEmployee.initOwner(personOverviewController.getMainDepartmentTable().getPrimaryStage());
+            addEmployee.initOwner(departmentsEditStage);
             addEmployee.initModality(Modality.WINDOW_MODAL);
+            addEmployee.resizableProperty().setValue(false);
             addEmployee.show();
             AddEmployeeController controller = loader.getController();
             controller.setDepartmentsEditController(this);
@@ -123,10 +172,16 @@ public class DepartmentsEditController {
         }
     }
 
-    public void closeAddition(){
+    public void closeAdditionEmployee(){
         ObservableList<Employee> a = FXCollections.observableArrayList(selectedDepartment.getEmployees());
         tableEmployee.setItems(a);
         addEmployee.close();
+    }
+
+    public void closeAdditionDepartment(){
+        ObservableList<Department> a = FXCollections.observableArrayList(Manager.getInstance().getDepartments());
+        departmentList.setItems(a);
+        addDepartment.close();
     }
 
     public void deleteEmployeeFromDepartment(){
