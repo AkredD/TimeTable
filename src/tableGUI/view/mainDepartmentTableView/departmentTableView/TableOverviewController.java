@@ -8,8 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -17,10 +19,10 @@ import java.util.ArrayList;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import manager.Manager;
 import tableGUI.model.DepartmentModel;
 
 public class TableOverviewController {
-    private Tab currentTab;
     private Department dep;
     private int monthId;
     private ObservableList<Pair<Employee, CalendarDep>> personData;
@@ -43,10 +45,12 @@ public class TableOverviewController {
     private void initialize(){
         //instances.add(this);
         //int i = 0;
+        personTable.editableProperty().setValue(true);
+
         nameID.setCellValueFactory(cellData -> cellData.getValue().getKey().getFstNameProperty().concat(" ").concat(cellData.getValue().getKey().getScnNameProperty()));
         positionID.setCellValueFactory(cellData -> cellData.getValue().getKey().getPositionProperty());
         idID.setCellValueFactory(cellData -> cellData.getValue().getKey().getIdProperty().asObject());
-        for (Integer i = 0; i < 31; ++i){
+        /*for (Integer i = 0; i < 31; ++i){
             i++;
             TableColumn<Pair<Employee, CalendarDep>, String> tableColumn = new TableColumn(i.toString());
             tableColumn.setMaxWidth(30);
@@ -57,15 +61,14 @@ public class TableOverviewController {
                 return  new SimpleStringProperty(cellData.getValue().getValue().getMonth(monthId).get(j).getValue().toString());
             });
             personTable.getColumns().add(tableColumn);
-        }
+        }*/
     }
 
-    public void setCurrentTab(Tab currentTab) {
-        this.currentTab = currentTab;
+    public void setCurrentTab(String month) {
         if (dep == null) return;
         monthId = -1;
         int[] monthDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        switch (currentTab.getText()){
+        switch (month){
             case ("January"):{
                 monthId = 0;
                 break;
@@ -128,9 +131,24 @@ public class TableOverviewController {
         }
         for (int i = 3; i < personTable.getColumns().size(); ++i){
             final int num = i;
+            if (Manager.getInstance().getAccess() == 0 || Manager.getInstance().getAccess() == 3){
+                ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).setCellFactory(TextFieldTableCell.forTableColumn());
+                ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).editableProperty().setValue(true);
+                ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Pair<Employee, CalendarDep>, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Pair<Employee, CalendarDep>, String> event) {
+                        try {
+                            dep.updateEmployeesCalendar(event.getTableView().getItems().get(event.getTablePosition().getRow()).getKey(),
+                                    event.getTableView().getItems().get(event.getTablePosition().getRow()).getValue().setValue(monthId, num - 3, event.getNewValue()));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
             ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).setCellValueFactory(cellData -> {
                 final int j = num;
-                return  new SimpleStringProperty(cellData.getValue().getValue().getMonth(monthId).get(j-3).getValue().toString());
+                return  new SimpleStringProperty(cellData.getValue().getValue().getMonth(monthId).get(j-3).getKey());
             });
         }
     }

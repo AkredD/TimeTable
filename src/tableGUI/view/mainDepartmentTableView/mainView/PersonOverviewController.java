@@ -65,7 +65,9 @@ public class PersonOverviewController {
                 ScrollPane tabOverview = (ScrollPane) ((AnchorPane) tb.getContent()).getChildren().get(0);
                 System.out.println(tb.getText());
                 tabOverview.setContent(personOverview);
-                controller.setCurrentTab(tb);
+                controller.setCurrentTab(tb.getText());
+                controller.setDepartment(dep);
+                controller.setCurrentTab("January");
                 controller.setDepartment(dep);
             }catch (Exception e){
 
@@ -82,7 +84,7 @@ public class PersonOverviewController {
                 tabOverview.setContent(personOverview);
                 //tb.getContent().
                 controller = loader.getController();
-                controller.setCurrentTab(tb);
+                controller.setCurrentTab(tb.getText());
                 controller.setDepartment(dep);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -55,6 +55,10 @@ public class CalendarDep {
         return calendar.get(i).get(j);
     }
 
+    public CalendarDep setValue(int i, int j, String newValue){
+        calendar.get(i).set(j, new Pair<>(newValue, 0));
+        return this;
+    }
 
     public ArrayList<Pair<String, Integer>> getMonth(int i) {return calendar.get(i);}
 

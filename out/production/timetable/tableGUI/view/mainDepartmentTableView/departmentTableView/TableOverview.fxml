@@ -9,7 +9,7 @@
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <TableView fx:id="personTable" BorderPane.alignment="CENTER">
+            <TableView fx:id="personTable" editable="true" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="nameID" maxWidth="60.0" prefWidth="60.0" text="Name" />
                 <TableColumn fx:id="positionID" maxWidth="60.0" prefWidth="60.0" text="Position" />

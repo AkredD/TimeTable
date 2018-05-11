@@ -17,7 +17,7 @@
    <children>
       <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <AnchorPane maxWidth="200.0" minWidth="210.0" prefHeight="210.0" prefWidth="210.0">
+            <AnchorPane maxWidth="200.0" minWidth="210.0" prefWidth="210.0">
                <children>
                   <BorderPane fx:id="departmentsBorderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <center>
@@ -48,7 +48,7 @@
                </children></AnchorPane>
             <AnchorPane>
                <children>
-                  <TabPane fx:id="tabTable" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane fx:id="tabTable" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="60.0" tabMinWidth="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
                       <Tab closable="false" onSelectionChanged="#setTable" text="January">
                            <content>
