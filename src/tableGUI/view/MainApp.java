@@ -1,5 +1,6 @@
 package tableGUI.view;
 
+import dataTable.MainSQL;
 import dataTable.departments.DepartmentsTable;
 import dataTable.departments.ElevationTable;
 import dataTable.departments.ProductionCalendarTable;
@@ -36,9 +37,14 @@ public class MainApp extends Application {
         departmentTable.start(mainStage);
     }
 
-    public static void initDB(){
+    public static void initDB(String[] args){
         Connection c;
         try {
+            try {
+                MainSQL.main(args);
+            }catch (Exception e){
+
+            }
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:timeTable.db");
             instanceET.setConnection(c);
@@ -58,7 +64,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        initDB();
+        initDB(args);
         launch(args);
     }
 

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="timetable:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/timetable_jar</output-path>
+    <root id="archive" name="timetable.jar">
+      <element id="module-output" name="timetable" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../sqlite-jdbc-3.21.0 (1).jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
