@@ -11,9 +11,9 @@
          <center>
             <TableView fx:id="personTable" editable="true" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="nameID" maxWidth="60.0" prefWidth="60.0" text="Name" />
-                <TableColumn fx:id="positionID" maxWidth="60.0" prefWidth="60.0" text="Position" />
-                  <TableColumn fx:id="idID" maxWidth="60.0" prefWidth="60.0" text="ID" />
+                <TableColumn fx:id="nameID" maxWidth="80.0" minWidth="80.0" resizable="false" text="Name" />
+                <TableColumn fx:id="positionID" maxWidth="60.0" prefWidth="60.0" resizable="false" text="Position" />
+                  <TableColumn fx:id="idID" maxWidth="60.0" prefWidth="60.0" resizable="false" text="ID" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

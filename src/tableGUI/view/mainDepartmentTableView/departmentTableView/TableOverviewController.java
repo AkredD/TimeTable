@@ -2,12 +2,15 @@ package tableGUI.view.mainDepartmentTableView.departmentTableView;
 
 import dataTable.departments.CalendarDep;
 import dataTable.departments.Department;
+import dataTable.departments.ElevationTable;
+import dataTable.departments.ProductionCalendarTable;
 import dataTable.employees.Employee;
 import dataTable.employees.EmployeeTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -19,8 +22,10 @@ import java.util.ArrayList;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.util.StringConverter;
 import manager.Manager;
 import tableGUI.model.DepartmentModel;
+import tableGUI.util.Util;
 
 public class TableOverviewController {
     private Department dep;
@@ -50,6 +55,7 @@ public class TableOverviewController {
         nameID.setCellValueFactory(cellData -> cellData.getValue().getKey().getFstNameProperty().concat(" ").concat(cellData.getValue().getKey().getScnNameProperty()));
         positionID.setCellValueFactory(cellData -> cellData.getValue().getKey().getPositionProperty());
         idID.setCellValueFactory(cellData -> cellData.getValue().getKey().getIdProperty().asObject());
+        //nameID.setStyle("-fx-background-color: #F19C75 ;");
         /*for (Integer i = 0; i < 31; ++i){
             i++;
             TableColumn<Pair<Employee, CalendarDep>, String> tableColumn = new TableColumn(i.toString());
@@ -121,25 +127,64 @@ public class TableOverviewController {
         if (monthDays[monthId] > (personTable.getColumns().size() - 3)){
             int n = personTable.getColumns().size() - 3;
             for (Integer i =  n + 1; i <= monthDays[monthId]; ++i){
-                TableColumn<Pair<Employee, CalendarDep>, String> a = new TableColumn(String.valueOf(i) );
+                String type = "";
+                try {
+                    if (!ProductionCalendarTable.getInstance().getProductionCalendar().getPair(monthId, i - 1).getKey().equals(" ")){
+                        type = "(" + ProductionCalendarTable.getInstance().getProductionCalendar().getPair(monthId, i - 1).getKey() + ")";
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                TableColumn<Pair<Employee, CalendarDep>, String> a = new TableColumn(String.valueOf(i).concat(type) );
 
-                a.setMaxWidth(30);
+                a.setMaxWidth(45);
+                a.setMinWidth(45);
                 personTable.getColumns().add(a);
             }
         }else{
             personTable.getColumns().remove(monthDays[monthId] + 3, (personTable.getColumns().size()));
         }
         for (int i = 3; i < personTable.getColumns().size(); ++i){
+            String type = setTitle(i-2);
+            personTable.getColumns().get(i).setText(String.valueOf(i-2).concat(type));
             final int num = i;
             if (Manager.getInstance().getAccess() == 0 || Manager.getInstance().getAccess() == 3){
-                ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).setCellFactory(TextFieldTableCell.forTableColumn());
+                ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).setCellFactory(col -> new TextFieldTableCell<>(new StringConverter<String>() {
+                    @Override
+                    public String toString(String object) {
+                        try {
+                            if (ElevationTable.getInstance().containsOf(object)){
+                                return object;
+                            }else{
+                                return "";
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    public String fromString(String string) {
+                        return string;
+                    }
+                }));
                 ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).editableProperty().setValue(true);
                 ((TableColumn<Pair<Employee, CalendarDep>, String>) personTable.getColumns().get(i)).setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Pair<Employee, CalendarDep>, String>>() {
                     @Override
                     public void handle(TableColumn.CellEditEvent<Pair<Employee, CalendarDep>, String> event) {
                         try {
-                            dep.updateEmployeesCalendar(event.getTableView().getItems().get(event.getTablePosition().getRow()).getKey(),
-                                    event.getTableView().getItems().get(event.getTablePosition().getRow()).getValue().setValue(monthId, num - 3, event.getNewValue()));
+                            if (ElevationTable.getInstance().containsOf(event.getNewValue())) {
+                                dep.updateEmployeesCalendar(event.getTableView().getItems().get(event.getTablePosition().getRow()).getKey(),
+                                        event.getTableView().getItems().get(event.getTablePosition().getRow()).getValue().setValue(monthId, num - 3, event.getNewValue()));
+                            }else{
+                                DepartmentModel departmentModel = new DepartmentModel(dep);
+
+                                ObservableList observableList = FXCollections.observableArrayList(departmentModel.getTableLine());
+                                event.getTableView().setItems(observableList);
+                                //event.getTableView().getItems().get(event.getTablePosition().getRow()).getValue().setValue(monthId, num - 3, event.getOldValue());
+                                Util.viewAlertWindow("Wrong elevation.");
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -162,5 +207,17 @@ public class TableOverviewController {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String setTitle(int i){
+        String type = "";
+        try {
+            if (!ProductionCalendarTable.getInstance().getProductionCalendar().getPair(monthId, i - 1).getKey().equals(" ")){
+                type = "(" + ProductionCalendarTable.getInstance().getProductionCalendar().getPair(monthId, i - 1).getKey() + ")";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return type;
     }
 }

@@ -56,6 +56,30 @@
                      </center>
                   </BorderPane>
                </left>
+               <right>
+                  <BorderPane BorderPane.alignment="CENTER">
+                     <right>
+                        <ButtonBar buttonMinWidth="80.0" nodeOrientation="LEFT_TO_RIGHT" BorderPane.alignment="CENTER">
+                          <buttons>
+                            <Button fx:id="buttonAccess" mnemonicParsing="false" onAction="#setAccess" text="Set Access" />
+                          </buttons>
+                           <BorderPane.margin>
+                              <Insets right="15.0" top="50.0" />
+                           </BorderPane.margin>
+                        </ButtonBar>
+                     </right>
+                     <left>
+                        <TextField fx:id="fieldAccess" maxWidth="50.0" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets top="55.0" />
+                           </BorderPane.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                     </left>
+                  </BorderPane>
+               </right>
             </BorderPane>
          </top>
          <center>

@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 
@@ -40,6 +41,20 @@ public class CreateEmployeeController {
 
     private EmployeesEditController employeesEditController;
 
+    @FXML
+    public void initialize(){
+        Random random = new Random();
+        Integer idRand = Math.abs(random.nextInt()) % 100000;
+        try {
+            while (EmployeeTable.getInstance().containsOf(idRand)){
+                idRand = Math.abs(random.nextInt()) % 100000;
+            }
+            fieldID.setText(idRand.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void createEmployee(){
         String name, surname, birthday, position, address, password;
         Integer age, id;
@@ -63,7 +78,7 @@ public class CreateEmployeeController {
         }
         try {
             if (!EmployeeTable.getInstance().containsOf(id)) {
-                Employee newEmp = new Employee(password, id, name, surname, birthday, age, position, address, 1);
+                Employee newEmp = new Employee(password, id, name, surname, birthday, age, position, address, 4);
                 EmployeeTable.getInstance().addEmployee(newEmp);
                 employeesEditController.closeAddEmployeeWindow();
             }else{

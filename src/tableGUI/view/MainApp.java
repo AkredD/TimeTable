@@ -1,6 +1,8 @@
 package tableGUI.view;
 
 import dataTable.departments.DepartmentsTable;
+import dataTable.departments.ElevationTable;
+import dataTable.departments.ProductionCalendarTable;
 import dataTable.employees.EmployeeTable;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,6 +17,7 @@ import java.sql.DriverManager;
 public class MainApp extends Application {
     private static DepartmentsTable instanceDT;
     private static EmployeeTable instanceET;
+    private static ElevationTable instanceElT;
     private Stage mainStage;
 
     @Override
@@ -40,8 +43,11 @@ public class MainApp extends Application {
             c = DriverManager.getConnection("jdbc:sqlite:timeTable.db");
             instanceET.setConnection(c);
             instanceET = EmployeeTable.getInstance();
-
+            ElevationTable.setConnection(c);
+            instanceElT = ElevationTable.getInstance();
             instanceDT = DepartmentsTable.getInstance();
+            ProductionCalendarTable.setConnection(c);
+            ProductionCalendarTable.getInstance();
             instanceDT.setConnection(c);
             instanceDT.initialize();
             Manager.getInstance().getDepartments();

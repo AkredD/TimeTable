@@ -29,6 +29,9 @@ public class PersonOverviewController {
     @FXML
     private BorderPane departmentsBorderPane;
 
+    @FXML
+    private ScrollPane tableScrollPane;
+
     // Ссылка на главное приложение.
     private MainDepartmentTable mainDepartmentTable;
     private Department dep;
@@ -62,13 +65,13 @@ public class PersonOverviewController {
         if (controller != null){
             try{
                 ((AnchorPane)tb.getContent()).getChildren().setAll(new ScrollPane());
-                ScrollPane tabOverview = (ScrollPane) ((AnchorPane) tb.getContent()).getChildren().get(0);
+                //ScrollPane tabOverview = (ScrollPane) ((AnchorPane) tb.getContent()).getChildren().get(0);
                 System.out.println(tb.getText());
-                tabOverview.setContent(personOverview);
+                tableScrollPane.setContent(personOverview);
+                tableScrollPane.fitToHeightProperty().setValue(true);
                 controller.setCurrentTab(tb.getText());
                 controller.setDepartment(dep);
-                controller.setCurrentTab("January");
-                controller.setDepartment(dep);
+                //controller.setCurrentTab(tb.getText());
             }catch (Exception e){
 
             }
@@ -79,13 +82,15 @@ public class PersonOverviewController {
                 personOverview = (AnchorPane) loader.load();
                 //AnchorPane tabOverview = (AnchorPane) tb.getContent();
                 ((AnchorPane)tb.getContent()).getChildren().setAll(new ScrollPane());
-                ScrollPane tabOverview = (ScrollPane) ((AnchorPane) tb.getContent()).getChildren().get(0);
+                //ScrollPane tabOverview = (ScrollPane) ((AnchorPane) tb.getContent()).getChildren().get(0);
                 System.out.println(tb.getText());
-                tabOverview.setContent(personOverview);
+                tableScrollPane.setContent(personOverview);
+                tableScrollPane.fitToHeightProperty().setValue(true);
                 //tb.getContent().
                 controller = loader.getController();
                 controller.setCurrentTab(tb.getText());
                 controller.setDepartment(dep);
+                controller.setCurrentTab(tb.getText());
             } catch (Exception e) {
                 e.printStackTrace();
             }

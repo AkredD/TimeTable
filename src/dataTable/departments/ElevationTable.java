@@ -12,33 +12,30 @@ import java.util.StringTokenizer;
 
 
 public class ElevationTable {
-    private Connection eln;
-    private String name;
+    private static Connection eln;
     private HashMap<String, String> elnS;
 
-    public ElevationTable(String name) throws Exception{
-        this.name = name;
-        this.eln = DepartmentsTable.getInstance().getConnection();
-        elnS = new HashMap<>();
+    private static ElevationTable instance;
+    private ElevationTable() throws Exception{
+        this.elnS = new HashMap<>();
+        openTable();
     }
 
-    public void createTable() throws Exception{
-        try{
-            Statement stm = eln.createStatement();
-            stm.executeUpdate("CREATE TABLE " + name + " " +
-                                "(SHORTNAME           TEXT    NOT NULL, " +
-                                "DESCRIPTION    TEXT    NOT NULL)");
-            stm.close();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            throw new Exception("Creation elevation table failed");
+    public static ElevationTable getInstance() throws Exception{
+        if (instance == null) {
+            instance = new ElevationTable();
         }
+        return instance;
+    }
+
+    public static void setConnection(Connection connection){
+        eln = connection;
     }
 
     public void openTable() throws Exception{
         try{
             Statement stm = eln.createStatement();
-            ResultSet res = stm.executeQuery("SELECT * FROM " + name);
+            ResultSet res = stm.executeQuery("SELECT * FROM ELEVATION");
 
             elnS.clear();
             while(res.next()){
@@ -56,7 +53,7 @@ public class ElevationTable {
         if (!elnS.containsKey(shtName)) {
             try {
                 Statement stm = eln.createStatement();
-                stm.executeUpdate("INSERT INTO " + name + " (SHORTNAME, DESCRIPTION) " +
+                stm.executeUpdate("INSERT INTO ELEVATION (SHORTNAME, DESCRIPTION) " +
                         "VALUES (" + "'" + shtName + "'" + ", " + "'" + dspn + "'" + ")");
                 elnS.put(shtName, dspn);
                 stm.close();
@@ -70,5 +67,9 @@ public class ElevationTable {
 
     public HashMap<String, String> getElavations(){
         return elnS;
+    }
+
+    public boolean containsOf(String shortName){
+        return elnS.containsKey(shortName);
     }
 }

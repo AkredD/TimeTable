@@ -40,6 +40,10 @@ public class DepartmentsMenuBarOverviewController {
         if (Manager.getInstance().getAccess() == 2){
             buttonDepartments.visibleProperty().setValue(false);
         }
+        if (Manager.getInstance().getAccess() == 3 || Manager.getInstance().getAccess() == 4){
+            buttonEmployees.visibleProperty().setValue(false);
+            buttonDepartments.visibleProperty().setValue(false);
+        }
     }
 
     public void setMainDepartmentTable(PersonOverviewController personOverviewController){

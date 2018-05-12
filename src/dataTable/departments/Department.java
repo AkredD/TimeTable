@@ -12,17 +12,14 @@ import java.util.StringTokenizer;
 
 public class Department {
     private DepartmentTable dptD;
-    private ElevationTable elvD;
     private String name;
 
     public Department(String name) throws Exception{
         this.name = name;
         if (DepartmentsTable.getInstance().containsOf(name)) {
             this.dptD = DepartmentsTable.getInstance().addDepartment(this);
-            //elvD.openTable();
         }else{
             this.dptD = DepartmentsTable.getInstance().addDepartment(this);
-            //elvD.createTable();
         }
     }
 
