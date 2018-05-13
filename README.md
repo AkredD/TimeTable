@@ -8,7 +8,7 @@
 * **3 - Timekeeper(Base account ID:3 Password:1234)**
 * **4 - User**
 ## Elevation
-* **See (help -> about) in the programm**
+* **See (help -> about) in the program**
 
 ## Data base model
 ### [GoogleDrive](https://drive.google.com/file/d/1Pntzd50j6gWVybXR_Dq2ZJ1XjImtqBVr/view?usp=sharing)
