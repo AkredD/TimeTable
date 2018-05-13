@@ -2,10 +2,10 @@
 
 # Roles
 
-* **0 - Administrator**
-* **1 - Administrator of the department directory**
-* **2 - Administrator of the worker's manual**
-* **3 - Timekeeper**
+* **0 - Administrator(Base account ID:0 Password:1234)**
+* **1 - Administrator of the department directory(Base account ID:1 Password:1234)**
+* **2 - Administrator of the worker's manual(Base account ID:2 Password:1234)**
+* **3 - Timekeeper(Base account ID:3 Password:1234)**
 * **4 - User**
 
 # Data base model
