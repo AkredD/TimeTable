@@ -49,7 +49,7 @@ public class DepartmentTable {
     private void download() throws Exception{
         try{
             Statement stm = dptn.createStatement();
-            ResultSet res = stm.executeQuery("SELECT * FROM " + nameDepartment);
+            ResultSet res = stm.executeQuery("SELECT * FROM " + "DepartmentLocal" + nameDepartment);
 
             while(res.next()){
                 Employee emp = EmployeeTable.getInstance().getEmployee(res.getInt("IDEMP"));
@@ -67,7 +67,7 @@ public class DepartmentTable {
     private void initialize() throws Exception{
         try {
             Statement stm = dptn.createStatement();
-            stm.executeUpdate("CREATE TABLE " + nameDepartment + " " +
+            stm.executeUpdate("CREATE TABLE " + "DepartmentLocal" + nameDepartment + " " +
                                 "(IDEMP                  INT      NOT NULL, " +
                                 " CALENDAR               TEXT     NOT NULL)");
             stm.close();
@@ -76,7 +76,7 @@ public class DepartmentTable {
 
             for (int i = 0; i < emps.size(); ++i){
                 stm = dptn.createStatement();
-                stm.executeUpdate("INSERT INTO " + nameDepartment + "(IDEMP, CALENDAR)" +
+                stm.executeUpdate("INSERT INTO " + "DepartmentLocal" + nameDepartment + "(IDEMP, CALENDAR)" +
                                     "VALUES (" + emps.get(i).getID() + ", " + "'" + cals.get(emps.get(i)).toString()  + "'" + ")" );
                 stm.close();
 
@@ -91,7 +91,7 @@ public class DepartmentTable {
         if (!emps.contains(emp)){
             try {
                 Statement stm = dptn.createStatement();
-                stm.executeUpdate("INSERT INTO " + nameDepartment + " ( IDEMP, CALENDAR ) " +
+                stm.executeUpdate("INSERT INTO " + "DepartmentLocal" + nameDepartment + " ( IDEMP, CALENDAR ) " +
                         "VALUES (" + emp.getID() + ", " + "'" + calendar.toString() + "'" + " )");
                 stm.close();
                 EmployeeTable.getInstance().addEmployeeToDepartment(emp, DepartmentsTable.getInstance().getDepartment(nameDepartment));
@@ -108,7 +108,7 @@ public class DepartmentTable {
         if (emps.contains(emp)){
             try{
                 Statement stm = dptn.createStatement();
-                stm.executeUpdate("UPDATE " + nameDepartment + " SET CALENDAR = " + "'" + calendar.toString() + "'"
+                stm.executeUpdate("UPDATE " + "DepartmentLocal" + nameDepartment + " SET CALENDAR = " + "'" + calendar.toString() + "'"
                                         + " WHERE IDEMP = " + emp.getID());
                 cals.replace(emp, calendar);
                 stm.close();
@@ -139,7 +139,7 @@ public class DepartmentTable {
         CalendarDep a = null;
         try{
             Statement stm = dptn.createStatement();
-            ResultSet res = stm.executeQuery("SELECT * FROM " + nameDepartment + " WHERE IDEMP=" +emp.getID());
+            ResultSet res = stm.executeQuery("SELECT * FROM " + "DepartmentLocal" + nameDepartment + " WHERE IDEMP=" +emp.getID());
             while(res.next()){
                 a =  new CalendarDep(res.getString("CALENDAR"));
             }
@@ -156,7 +156,7 @@ public class DepartmentTable {
         if (emps.contains(emp)){
             try{
                 Statement stm = dptn.createStatement();
-                stm.executeUpdate(" DELETE FROM " + nameDepartment + " WHERE IDEMP = " + emp.getID());
+                stm.executeUpdate(" DELETE FROM " + "DepartmentLocal" + nameDepartment + " WHERE IDEMP = " + emp.getID());
                 stm.close();
                 EmployeeTable.getInstance().deleteEmployeeFromDepartment(emp, DepartmentsTable.getInstance().getDepartment(nameDepartment));
                 emps.remove(emp);

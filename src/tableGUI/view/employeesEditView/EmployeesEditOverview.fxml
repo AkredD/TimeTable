@@ -37,18 +37,8 @@
                            </BorderPane.margin>
                         </ButtonBar>
                      </bottom>
-                     <top>
-                        <Label text="Find" BorderPane.alignment="CENTER">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font>
-                        </Label>
-                     </top>
                      <center>
-                        <TextField fx:id="textFind" BorderPane.alignment="CENTER">
+                        <TextField fx:id="textFind" promptText="Find usage" BorderPane.alignment="CENTER">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -64,14 +54,14 @@
                             <Button fx:id="buttonAccess" mnemonicParsing="false" onAction="#setAccess" text="Set Access" />
                           </buttons>
                            <BorderPane.margin>
-                              <Insets right="15.0" top="50.0" />
+                              <Insets bottom="7.0" right="15.0" top="50.0" />
                            </BorderPane.margin>
                         </ButtonBar>
                      </right>
                      <left>
                         <TextField fx:id="fieldAccess" maxWidth="50.0" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
-                              <Insets top="55.0" />
+                              <Insets bottom="10.0" top="55.0" />
                            </BorderPane.margin>
                            <font>
                               <Font size="13.0" />

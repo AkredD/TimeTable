@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import manager.Manager;
 import tableGUI.view.MainApp;
 import tableGUI.view.mainDepartmentTableView.mainView.PersonOverviewController;
+import tableGUI.view.mainDepartmentTableView.mainView.RootController;
 import tableGUI.view.mainDepartmentTableView.mainView.departmentMenuBar.DepartmentsMenuBarOverviewController;
 
 public class MainDepartmentTable extends Application {
@@ -67,7 +68,7 @@ public class MainDepartmentTable extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainDepartmentTable.class.getResource("mainView/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-
+            RootController controller = loader.getController();
             // Отображаем сцену, содержащую корневой макет.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);

@@ -14,6 +14,7 @@ import tableGUI.view.mainDepartmentTableView.MainDepartmentTable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+// --TODO using only numbers to create new department
 
 public class MainApp extends Application {
     private static DepartmentsTable instanceDT;

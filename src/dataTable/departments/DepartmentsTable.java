@@ -93,7 +93,7 @@ public class DepartmentsTable {
             try{
                 Statement stm = dpnts.createStatement();
                 stm.executeUpdate("DELETE FROM DEPARTMENTS WHERE NAME = " + "'" + dep.getName() + "'");
-                stm.executeUpdate("DROP TABLE " + dep.getName());
+                stm.executeUpdate("DROP TABLE " + "DepartmentLocal" + dep.getName());
                 departments.remove(dep.getName());
                 stm.close();
             }catch (Exception e){

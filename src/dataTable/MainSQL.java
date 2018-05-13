@@ -83,7 +83,12 @@ public class MainSQL {
 
             EmployeeTable.getInstance().addEmployee(new Employee("1234",0, "admin", "admin", "0.0.0",
                     -1, "admin", "server", 0));
-
+            EmployeeTable.getInstance().addEmployee(new Employee("1234", 1, "departmentAdministrator", "admin",
+                    "0.0.0", -1, "admin", "server", 1));
+            EmployeeTable.getInstance().addEmployee(new Employee("1234", 2, "employeeAdministrator", "admin",
+                    "0.0.0", -1, "admin", "server", 2));
+            EmployeeTable.getInstance().addEmployee(new Employee("1234", 3, "tableAdministrator", "admin",
+                    "0.0.0", -1, "admin", "server", 3));
             //ProductionCalendarTable.getInstance().updateCalendar(calendarDep);
             /*EmployeeTable.getInstance().addEmployee(new Employee("1234",1, "admin", "admin", "c",
                     30, "low", "www.low", 1));
